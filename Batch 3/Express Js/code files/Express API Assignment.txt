@@ -1,6 +1,0 @@
-Assignment...
-
-Create a Library Management API.
-
-1. Where you perform a CRUD operations for books (title, author, genre, published year).
-2. Ability to mark books as "borrowed" or "available."
