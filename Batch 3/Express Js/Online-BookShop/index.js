@@ -1,6 +1,7 @@
 const express = require("express");
 require("./config/db");
 const userRouter = require("./router/user.router");
+const storeRouter = require("./router/store.router");
 const app = express();
 const PORT = 2030;
 
@@ -13,6 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRouter);
+app.use("/api/store", storeRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`);

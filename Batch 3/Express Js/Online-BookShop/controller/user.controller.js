@@ -79,4 +79,19 @@ const signInUser = async (req, res) => {
   }
 };
 
-module.exports = { signUpUser, getAllUsers, signInUser };
+const getOneUser = async (req, res) => {
+  try {
+    const oneUser = await userModel.findById(req.params.userID);
+    res.status(200).json({
+      message: "User gotten successfully",
+      data: oneUser,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "An Error occoured getting this user",
+      data: error,
+    });
+  }
+};
+
+module.exports = { signUpUser, getAllUsers, signInUser, getOneUser };
