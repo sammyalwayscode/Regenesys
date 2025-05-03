@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Bookstore.css";
-import mysignimage from "../../assets/hero.jpg";
+// import mysignimage from "../../assets/hero.jpg";
+import axios from "axios";
 
 const Bookstore = () => {
+  const [books, setBook] = useState([]);
+
+  console.log(books);
+
+  const fetchBooks = async () => {
+    const res = await axios.get(
+      "https://onlinebook-lb9p.onrender.com/api/store/allbooks"
+    );
+    setBook(res.data.data);
+  };
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
   return (
     <div className="book_container">
       <header>
@@ -19,78 +34,20 @@ const Bookstore = () => {
         </p>
       </section>
       <section className="card_section">
-        <div className="card">
-          <div className="card_image">
-            <img src={mysignimage} alt="" />
-          </div>
-          <section className="name_title_hold">
-            <div className="user_first_name">A</div>
-            <div className="book_title_name">
-              <p>Atomic Habbit</p>
-              <div>Sammy</div>
+        {books.map((mydata, i) => (
+          <div className="card" key={i}>
+            <div className="card_image">
+              <img src={mydata.avatar} alt="" />
             </div>
-          </section>
-        </div>
-        <div className="card">
-          <div className="card_image">
-            <img src={mysignimage} alt="" />
+            <section className="name_title_hold">
+              <div className="user_first_name"> {mydata.title.charAt()} </div>
+              <div className="book_title_name">
+                <p> {mydata.title} </p>
+                <div> {mydata.author} </div>
+              </div>
+            </section>
           </div>
-          <section className="name_title_hold">
-            <div className="user_first_name">A</div>
-            <div className="book_title_name">
-              <p>Atomic Habbit</p>
-              <div>Sammy</div>
-            </div>
-          </section>
-        </div>
-        <div className="card">
-          <div className="card_image">
-            <img src={mysignimage} alt="" />
-          </div>
-          <section className="name_title_hold">
-            <div className="user_first_name">A</div>
-            <div className="book_title_name">
-              <p>Atomic Habbit</p>
-              <div>Sammy</div>
-            </div>
-          </section>
-        </div>
-        <div className="card">
-          <div className="card_image">
-            <img src={mysignimage} alt="" />
-          </div>
-          <section className="name_title_hold">
-            <div className="user_first_name">A</div>
-            <div className="book_title_name">
-              <p>Atomic Habbit</p>
-              <div>Sammy</div>
-            </div>
-          </section>
-        </div>
-        <div className="card">
-          <div className="card_image">
-            <img src={mysignimage} alt="" />
-          </div>
-          <section className="name_title_hold">
-            <div className="user_first_name">A</div>
-            <div className="book_title_name">
-              <p>Atomic Habbit</p>
-              <div>Sammy</div>
-            </div>
-          </section>
-        </div>
-        <div className="card">
-          <div className="card_image">
-            <img src={mysignimage} alt="" />
-          </div>
-          <section className="name_title_hold">
-            <div className="user_first_name">A</div>
-            <div className="book_title_name">
-              <p>Atomic Habbit</p>
-              <div>Sammy</div>
-            </div>
-          </section>
-        </div>
+        ))}
       </section>
     </div>
   );

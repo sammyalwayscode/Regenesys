@@ -53,6 +53,21 @@ const getBook = async (req, res) => {
   }
 };
 
+const getAllBook = async (req, res) => {
+  try {
+    const getBooks = await storeModel.find();
+    res.status(200).json({
+      message: "books gotten successfully",
+      data: getBooks,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Failed to get all book",
+      data: error,
+    });
+  }
+};
+
 const getSingleBook = async (req, res) => {
   try {
     const bookData = await storeModel.findById(req.params.id);
@@ -109,4 +124,11 @@ const updateBook = async (req, res) => {
   }
 };
 
-module.exports = { createBook, getBook, getSingleBook, deleteBook, updateBook };
+module.exports = {
+  createBook,
+  getBook,
+  getSingleBook,
+  deleteBook,
+  updateBook,
+  getAllBook,
+};

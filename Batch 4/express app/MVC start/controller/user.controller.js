@@ -4,4 +4,11 @@ const getUsers = (req, res) => {
   res.status(200).json(userModel);
 };
 
-module.exports = { getUsers };
+const postUser = (req, res) => {
+  const { name } = req.body;
+  const newUser = { id: userModel.length + 1, name };
+  userModel.push(newUser);
+  res.status(201).json(newUser);
+};
+
+module.exports = { getUsers, postUser };
