@@ -1,53 +1,62 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import mysignimage from "../../../assets/sign.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import LoadingComp from "../../../component/Loading/LoadingComp";
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmmit = async (e) => {
+  const handleSummit = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
-      "https://onlinebook-lb9p.onrender.com/api/user/signup",
-      formData
-    );
-    console.log(res);
-    Swal.fire({
-      title: "Sign Up Successfull",
-      text: "You clicked the button!",
-      icon: "success",
-    });
-  };
+    const endpointURL = "https://onlinebook-lb9p.onrender.com/api/user/signup";
+    setLoading(true);
 
-  console.log(formData);
+    try {
+      await axios.post(endpointURL, { username, email, password });
+      Swal.fire({
+        title: `Welcome ${username}`,
+        text: "We are glad to have you join our platform",
+        icon: "success",
+        timer: 2000,
+        timerProgressBar: true,
+      }).then(() => navigate("/signin"));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: `Oops, An error Occoured`,
+        text: error.res7ponse.data.message,
+        // text: error.message,
+        icon: "error",
+      });
+    }
+  };
   return (
     <div className="sign_container">
+      {loading && <LoadingComp />}
       <section className="form_section">
         <div className="form_holder">
           <img src="./orange.png" alt="Logo" />
           <h2>Get Started</h2>
           <p>Welcome to OBS - Let's create your account</p>
           <hr />
-          <form onSubmit={handleSubmmit}>
+          <form onSubmit={handleSummit}>
             <main>
               <label>Username</label>
               <input
                 type="text"
                 placeholder="Enter your username"
-                value={formData.username}
                 name="username"
-                onChange={handleChange}
+                value={username}
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                }}
               />
             </main>
             <main>
@@ -55,9 +64,10 @@ const SignUp = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                value={formData.email}
-                name="email"
-                onChange={handleChange}
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </main>
             <main>
@@ -65,12 +75,13 @@ const SignUp = () => {
               <input
                 type="password"
                 placeholder="Enter your Password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </main>
-            <button>Sign Up</button>
+            <button type="submit">Sign Up</button>
             <small>
               Already Have an account?{" "}
               <Link to="/signin">
