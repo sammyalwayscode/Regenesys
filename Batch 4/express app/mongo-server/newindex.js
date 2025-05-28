@@ -1,5 +1,6 @@
 const express = require("express");
 require("./utils/db");
+
 const userRouter = require("./router/user.router");
 const app = express();
 const PORT = 2332;
