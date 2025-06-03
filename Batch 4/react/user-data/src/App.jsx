@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import CreateUser from "./pages/CreateUser";
 import Header from "./static/Header";
+import UserDetail from "./pages/UserDetail";
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/details" element={<UserDetail />} />
           <Route path="/createusers" element={<CreateUser />} />
         </Routes>
       </BrowserRouter>

@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <div className=" max-w-[1250px] mx-auto">
       <section className=" py-6">
-        <h1>Our Users</h1>
+        <h1 style={{ fontFamily: "WDXL Lubrifont TC" }}>Our Users</h1>
       </section>
       <section className=" flex">
         <main className=" bg-white h-40 p-5 w-80 rounded-md m-2.5">
