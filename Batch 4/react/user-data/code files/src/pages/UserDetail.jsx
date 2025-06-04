@@ -1,57 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import API from "../api/api";
-import { CircleLoader } from "react-spinners";
+import React from "react";
 
 const UserDetail = () => {
-  const { id } = useParams();
-  console.log("This is my id", id);
-  const [oneUser, setOneUser] = useState({});
-  const [loading, setLoading] = useState(true);
-  console.log(oneUser);
-
-  const getSingleUser = async () => {
-    const res = await API.get(`/viewoneuser/${id}`);
-    setOneUser(res.data.data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getSingleUser();
-  }, []);
-
-  if (loading)
-    return (
-      <CircleLoader size={50} color="#7e22ce" className=" mx-auto mt-10" />
-    );
-
   return (
     <div>
       <section className="  bg-white max-w-[900px] mx-auto my-12 px-20 py-10 rounded-lg">
         <div className=" h-32 w-32 bg-purple-400 text-white rounded-full flex justify-center items-center text-5xl font-bold mr-3">
-          {oneUser?.username?.charAt()}
+          S
         </div>
         <br />
         <h2>
           {" "}
-          <b>Name:</b> {oneUser.username}
+          <b>Name:</b> Sammy
         </h2>
 
         <p>
           {" "}
-          <b>Email:</b> {oneUser.email}
+          <b>Email:</b> Sammy
         </p>
         <p>
           {" "}
-          <b>Age:</b> {oneUser.age}
+          <b>Age:</b> Sammy
         </p>
         <p>
           {" "}
-          <b>Address:</b> {oneUser.address}
+          <b>Address:</b> Sammy
         </p>
         <p>
           {" "}
-          <b>Bio:</b> {oneUser.bio}
+          <b>Bio:</b> Sammy
         </p>
         <main>
           <button className=" bg-amber-400 w-40 my-4 text-white font-semibold text-sm py-2 cursor-pointer hover:bg-amber-500 rounded-md mr-4">
