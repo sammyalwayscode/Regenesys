@@ -31,12 +31,12 @@ const Home = () => {
       <section className=" py-6">
         <h1 style={{ fontFamily: "WDXL Lubrifont TC" }}>Our Users</h1>
       </section>
-      <section className=" flex">
+      <section className=" flex flex-wrap">
         {myUser.map((allUserData) => (
           <main className=" bg-white h-40 p-5 w-80 rounded-md m-2.5">
             <div className=" flex items-center">
               <div className=" h-16 w-16 bg-purple-400 text-white rounded-full flex justify-center items-center text-3xl font-bold mr-3">
-                {allUserData.username.charAt()}
+                {allUserData?.username?.charAt()}
               </div>
               <div>
                 <h2 className=" font-black text-2xl">
