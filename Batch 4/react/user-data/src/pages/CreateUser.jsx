@@ -34,7 +34,7 @@ const CreateUser = () => {
       setAddress("");
       setBio("");
     } catch (error) {
-      console.log(error);
+      console.log("Error from the catch", error);
 
       Swal.fire({
         title: error.response.data.message,

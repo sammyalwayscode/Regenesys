@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import API from "../api/api";
 import { CircleLoader } from "react-spinners";
+import Swal from "sweetalert2";
 
 const UserDetail = () => {
   const { id } = useParams();
@@ -9,6 +10,7 @@ const UserDetail = () => {
   const [oneUser, setOneUser] = useState({});
   const [loading, setLoading] = useState(true);
   console.log(oneUser);
+  const navigate = useNavigate();
 
   const getSingleUser = async () => {
     const res = await API.get(`/viewoneuser/${id}`);
@@ -24,6 +26,34 @@ const UserDetail = () => {
     return (
       <CircleLoader size={50} color="#7e22ce" className=" mx-auto mt-10" />
     );
+
+  const deleteUser = async () => {
+    const confim = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (confim.isConfirmed) {
+      try {
+        await API.delete(`/removeuser/${id}`);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+        });
+        navigate("/");
+      } catch (error) {
+        Swal.fire(error, "Failed to delete User", "error");
+      }
+    }
+  };
 
   return (
     <div>
@@ -58,11 +88,17 @@ const UserDetail = () => {
             Edit Info
           </button>
 
-          <button className=" bg-red-600 w-40 my-4 text-white font-semibold text-sm py-2 cursor-pointer hover:bg-red-700 rounded-md mr-4">
+          <button
+            onClick={deleteUser}
+            className=" bg-red-600 w-40 my-4 text-white font-semibold text-sm py-2 cursor-pointer hover:bg-red-700 rounded-md mr-4"
+          >
             Delete Info
           </button>
 
-          <button className=" bg-blue-600 w-40 my-4 text-white font-semibold text-sm py-2 cursor-pointer hover:bg-blue-700 rounded-md">
+          <button
+            onClick={() => navigate("/")}
+            className=" bg-blue-600 w-40 my-4 text-white font-semibold text-sm py-2 cursor-pointer hover:bg-blue-700 rounded-md"
+          >
             Back to Home
           </button>
         </main>
