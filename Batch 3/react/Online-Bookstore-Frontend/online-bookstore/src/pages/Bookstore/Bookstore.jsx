@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./Bookstore.css";
 // import mysignimage from "../../assets/hero.jpg";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import Header from "../../component/Header";
 
 const Bookstore = () => {
   const [books, setBook] = useState([]);
@@ -20,13 +22,7 @@ const Bookstore = () => {
   }, []);
   return (
     <div className="book_container">
-      <header>
-        <img src="./orange.png" alt="Logo" />
-        <section className="btn_section">
-          <button>LogOut</button>
-          <div className="first_letter">A</div>
-        </section>
-      </header>
+      <Header />
       <section className="Bookstore_Title">
         <h1>Explore the world of Books</h1>
         <p>
@@ -36,9 +32,11 @@ const Bookstore = () => {
       <section className="card_section">
         {books.map((mydata, i) => (
           <div className="card" key={i}>
-            <div className="card_image">
-              <img src={mydata.avatar} alt="" />
-            </div>
+            <Link to={`/detail/${mydata._id}`}>
+              <div className="card_image">
+                <img src={mydata.avatar} alt="" />
+              </div>
+            </Link>
             <section className="name_title_hold">
               <div className="user_first_name"> {mydata.title.charAt()} </div>
               <div className="book_title_name">
