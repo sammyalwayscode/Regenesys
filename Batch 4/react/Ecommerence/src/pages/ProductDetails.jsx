@@ -1,6 +1,24 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const ProductDetails = () => {
+  const { id } = useParams();
+  const [getSingleProduct, setGetSingleProduct] = useState({});
+
+  console.log(getSingleProduct);
+
+  const getProductDetail = async () => {
+    const res = await axios.get(
+      `https://red-cart-be.onrender.com/api/product/getoneproduct/${id}`
+    );
+    setGetSingleProduct(res.data.data);
+  };
+
+  useEffect(() => {
+    getProductDetail();
+  }, []);
+
   return (
     <div>
       <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
@@ -9,24 +27,23 @@ const ProductDetails = () => {
             <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
               <img
                 className="w-full dark:hidden"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
+                src={getSingleProduct?.productImage}
                 alt=""
               />
               <img
                 className="w-full hidden dark:block"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
+                src={getSingleProduct?.productImage}
                 alt=""
               />
             </div>
 
             <div className="mt-6 sm:mt-8 lg:mt-0">
               <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                Apple iMac 24" All-In-One Computer, Apple M1, 8GB RAM, 256GB
-                SSD, Mac OS, Pink
+                {getSingleProduct?.productTitle}
               </h1>
               <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
                 <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
-                  $1,249.99
+                  ${getSingleProduct?.price}
                 </p>
 
                 <div className="flex items-center gap-2 mt-2 sm:mt-0">
@@ -156,10 +173,7 @@ const ProductDetails = () => {
               <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 
               <p className="mb-6 text-gray-500 dark:text-gray-400">
-                Studio quality three mic array for crystal clear calls and voice
-                recordings. Six-speaker sound system for a remarkably robust and
-                high-quality audio experience. Up to 256GB of ultrafast SSD
-                storage.
+                {getSingleProduct?.description}
               </p>
 
               <p className="text-gray-500 dark:text-gray-400">
