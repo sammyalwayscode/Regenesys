@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { addToCart } from "../global/action";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [getSingleProduct, setGetSingleProduct] = useState({});
+
+  const dispatch = useDispatch();
 
   console.log(getSingleProduct);
 
@@ -143,11 +147,13 @@ const ProductDetails = () => {
                   Add to favorites
                 </a>
 
-                <a
-                  href="#"
+                <span
                   title=""
                   className="text-white mt-4 sm:mt-0 bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800 flex items-center justify-center"
                   role="button"
+                  onClick={() => {
+                    dispatch(addToCart(getSingleProduct));
+                  }}
                 >
                   <svg
                     className="w-5 h-5 -ms-2 me-2"
@@ -167,7 +173,7 @@ const ProductDetails = () => {
                     />
                   </svg>
                   Add to cart
-                </a>
+                </span>
               </div>
 
               <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
