@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import CreateUser from "./pages/CreateUser";
 import Header from "./static/Header";
-import UserDetail from "./pages/UserDetail";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Produce from "./pages/Produce";
+import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
 
 const App = () => {
   return (
@@ -12,8 +13,9 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/details/:id" element={<UserDetail />} />
-          <Route path="/createusers" element={<CreateUser />} />
+          <Route path="/product" element={<Produce />} />
+          <Route path="/product/detail/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </div>
