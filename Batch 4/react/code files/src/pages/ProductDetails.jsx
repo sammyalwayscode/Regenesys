@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { addToCart } from "../global/action";
+import toast, { Toaster } from "react-hot-toast";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -25,6 +26,7 @@ const ProductDetails = () => {
 
   return (
     <div>
+      <Toaster />
       <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
         <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
           <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
@@ -153,6 +155,7 @@ const ProductDetails = () => {
                   role="button"
                   onClick={() => {
                     dispatch(addToCart(getSingleProduct));
+                    toast.success("Item added to cart");
                   }}
                 >
                   <svg

@@ -1,9 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { addToCart } from "../global/action";
+import toast, { Toaster } from "react-hot-toast";
 
 const Produce = () => {
   const [allProducts, setAllProducts] = useState([]);
+
+  const dispatch = useDispatch();
 
   const getAllProduct = async () => {
     const res = await axios.get(
@@ -20,6 +25,7 @@ const Produce = () => {
 
   return (
     <div>
+      <Toaster />
       <section className="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
@@ -244,6 +250,10 @@ const Produce = () => {
 
                     <button
                       type="button"
+                      onClick={() => {
+                        dispatch(addToCart(prod));
+                        toast.success("Item Added to cart");
+                      }}
                       className="inline-flex items-center rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4  focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                     >
                       <svg

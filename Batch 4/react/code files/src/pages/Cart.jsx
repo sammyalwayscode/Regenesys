@@ -1,9 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../global/action";
 
 const Cart = () => {
-  const cartItem = useSelector((state) => state.myReducer.cart);
+  const cartItem = useSelector((state) => state.cart);
   console.log("This is the cartItem", cartItem);
+  const dispatch = useDispatch();
   return (
     <div>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
@@ -71,6 +73,9 @@ const Cart = () => {
                             required
                           />
                           <button
+                            onClick={() => {
+                              dispatch(addToCart(myCart));
+                            }}
                             type="button"
                             id="increment-button"
                             data-input-counter-increment="counter-input"
@@ -134,6 +139,9 @@ const Cart = () => {
                           </button>
 
                           <button
+                            onClick={() => {
+                              dispatch(removeFromCart(myCart));
+                            }}
                             type="button"
                             className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
                           >
