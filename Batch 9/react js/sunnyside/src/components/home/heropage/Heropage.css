@@ -1,0 +1,31 @@
+.heroContainer {
+  background-image: url("../../../assets/desktop/image-header.jpg");
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.heroText {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 30px;
+  font-family: "Fraunces", serif;
+  color: white;
+}
+
+.arrowSection {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .heroText {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 425px) {
+  .heroText {
+    font-size: 17px;
+  }
+}

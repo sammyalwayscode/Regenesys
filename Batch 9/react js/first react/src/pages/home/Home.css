@@ -1,0 +1,33 @@
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  input {
+    height: 40px;
+    width: 320px;
+  }
+
+  button {
+    height: 40px;
+    width: 100px;
+    background-color: darkorange;
+    outline: none;
+    border: none;
+  }
+}
+
+.formCard {
+  min-height: 100px;
+  width: 300px;
+  background-color: darkorange;
+  padding: 10px;
+  border: 2px solid lightgray;
+}
+
+.cardSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+}

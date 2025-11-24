@@ -1,0 +1,13 @@
+.headerContainer {
+  height: 80px;
+  width: 100%;
+  background-color: darkorchid;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+  nav {
+    color: white;
+  }
+}

@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+}
+
+/* .container {
+  display: flex;
+  flex-direction: row;
+  flex-direction: row-reverse;
+  flex-direction: column;
+  flex-direction: column-reverse;
+  height: 100vh;
+  background-color: #87cefa;
+} */
+
+/* .container {
+  display: flex;
+  height: 100vh;
+  background-color: #87cefa;
+  justify-content: flex-start;
+  justify-content: flex-end;
+  justify-content: space-between;
+  justify-content: center;
+  justify-content: space-around;
+  justify-content: space-evenly;
+} */
+
+/* .container {
+  display: flex;
+  height: 100vh;
+  background-color: #87cefa;
+  align-items: flex-start;
+  align-items: flex-end;
+  align-items: center;
+  align-items: baseline;
+  align-items: stretch;
+} */
+
+/* .container {
+  display: flex;
+  height: 100vh;
+  background-color: #87cefa;
+  align-items: flex-end;
+  justify-content: flex-end;
+} */
+
+.container {
+  display: flex;
+  height: 100vh;
+  background-color: #87cefa;
+  width: 500px;
+  /* flex-wrap: nowrap; */
+  /* flex-wrap: wrap; */
+  flex-wrap: wrap-reverse;
+}
+
+.first {
+  height: 100px;
+  width: 100px;
+  background-color: darkcyan;
+}
+.second {
+  height: 100px;
+  width: 100px;
+  background-color: darkorange;
+}
+.third {
+  height: 100px;
+  width: 100px;
+  background-color: darkorchid;
+}

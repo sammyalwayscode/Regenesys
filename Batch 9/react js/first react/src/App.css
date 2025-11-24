@@ -1,0 +1,11 @@
+.helloStyle {
+  background-color: red;
+  color: white;
+}
+
+.ball {
+  height: 100px;
+  width: 100px;
+  background-color: chocolate;
+  border-radius: 50%;
+}

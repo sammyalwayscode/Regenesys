@@ -1,0 +1,37 @@
+h2 {
+  background-color: yellow;
+}
+
+.ball {
+  height: 70px;
+  width: 70px;
+  background-color: red;
+  border-radius: 50%;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(150px);
+  }
+}
+
+.myTransitionButton {
+  padding: 15px 40px;
+  font-size: 18px;
+  background-color: skyblue;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 350ms ease;
+}
+
+.myTransitionButton:hover {
+  background-color: darkgoldenrod;
+  transform: scale(1.2);
+}
