@@ -1,11 +1,57 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../global/action";
+import {
+  addToCart,
+  clearCart,
+  removeFromCart,
+  resetPrice,
+  resetQty,
+  subtractFromCart,
+} from "../global/action";
+import { PaystackButton } from "react-paystack";
+import Swal from "sweetalert2";
 
 const Cart = () => {
   const cartItem = useSelector((state) => state.cart);
+  const totalPriceCheck = useSelector((state) => state.totalPrice);
   console.log("This is the cartItem", cartItem);
   const dispatch = useDispatch();
+
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: "sam@gmail.com",
+    amount: totalPriceCheck * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    publicKey: "pk_test_2bbcb1eb3e54d6c60a722e7b3eda839163c83bf0",
+  };
+
+  // you can call this function anything
+  const handlePaystackSuccessAction = (reference) => {
+    // Implementation for whatever you want to do with reference and after success call.
+    console.log(reference);
+    dispatch(resetPrice());
+    dispatch(resetQty());
+    dispatch(clearCart());
+
+    Swal.fire({
+      title: "Order Complicted!",
+      text: "You clicked the button!",
+      icon: "success",
+    });
+  };
+
+  // you can call this function anything
+  const handlePaystackCloseAction = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log("closed");
+  };
+
+  const componentProps = {
+    ...config,
+    text: "Make Payment",
+    onSuccess: (reference) => handlePaystackSuccessAction(reference),
+    onClose: handlePaystackCloseAction,
+  };
+
   return (
     <div>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
@@ -16,6 +62,7 @@ const Cart = () => {
 
           <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
             <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+              {/* {cartItem === null ? "test" : "bi jhs"} */}
               <div className="space-y-6">
                 {cartItem?.map((myCart, i) => (
                   <div
@@ -44,6 +91,9 @@ const Cart = () => {
                           <button
                             type="button"
                             id="decrement-button"
+                            onClick={() => {
+                              dispatch(subtractFromCart(myCart));
+                            }}
                             data-input-counter-decrement="counter-input"
                             className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
                           >
@@ -170,6 +220,7 @@ const Cart = () => {
                   </div>
                 ))}
               </div>
+
               <div className="hidden xl:mt-8 xl:block">
                 <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
                   People also bought
@@ -454,10 +505,10 @@ const Cart = () => {
                   <div className="space-y-2">
                     <dl className="flex items-center justify-between gap-4">
                       <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                        Original price
+                        Total price
                       </dt>
                       <dd className="text-base font-medium text-gray-900 dark:text-white">
-                        $7,592.00
+                        ${totalPriceCheck}.00
                       </dd>
                     </dl>
 
@@ -466,7 +517,7 @@ const Cart = () => {
                         Savings
                       </dt>
                       <dd className="text-base font-medium text-green-600">
-                        -$299.00
+                        $0.00
                       </dd>
                     </dl>
 
@@ -475,7 +526,7 @@ const Cart = () => {
                         Store Pickup
                       </dt>
                       <dd className="text-base font-medium text-gray-900 dark:text-white">
-                        $99
+                        $0
                       </dd>
                     </dl>
 
@@ -484,7 +535,7 @@ const Cart = () => {
                         Tax
                       </dt>
                       <dd className="text-base font-medium text-gray-900 dark:text-white">
-                        $799
+                        $0
                       </dd>
                     </dl>
                   </div>
@@ -494,8 +545,15 @@ const Cart = () => {
                       Total
                     </dt>
                     <dd className="text-base font-bold text-gray-900 dark:text-white">
-                      $8,191.00
+                      ${totalPriceCheck}.00
                     </dd>
+                    <button
+                      onClick={() => {
+                        dispatch(resetPrice());
+                      }}
+                    >
+                      reset
+                    </button>
                   </dl>
                 </div>
 
@@ -503,8 +561,9 @@ const Cart = () => {
                   href="#"
                   className="flex w-full items-center justify-center rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                 >
-                  Proceed to Checkout
+                  Proceed to Payment
                 </a>
+                <PaystackButton {...componentProps} />
 
                 <div className="flex items-center justify-center gap-2">
                   <span className="text-sm font-normal text-gray-500 dark:text-gray-400">

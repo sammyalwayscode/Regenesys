@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Produce from "./pages/Produce";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
+import SignUp from "./pages/auth/SignUp";
+import SignIn from "./pages/auth/SignIn";
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="/product" element={<Produce />} />
           <Route path="/product/detail/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
     </div>
